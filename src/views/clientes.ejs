@@ -4,6 +4,14 @@
   <meta charset="UTF-8">
   <title>Registro de Clientes</title>
   <link rel="stylesheet" href="/css/styles.css">
+  <script>
+    window.onload = function() {
+        const errorMessage = '<%= typeof error !== "undefined" ? error : "" %>';
+        if (errorMessage) {
+            alert(errorMessage);
+        }
+    }
+  </script>
   <style>
     .input-group {
       margin: 20px 0;

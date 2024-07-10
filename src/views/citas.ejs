@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Citas</title>
+  <title>Registro de Citas</title>
   <link rel="stylesheet" href="/css/styles.css">
   <style>
     .input-group {
@@ -43,40 +43,64 @@
   
   <form action="/citas" method="POST">
     <!-- Input de lista para seleccionar un cliente -->
+
     <div class="input-group">
-      <label for="clienteSeleccionado">Seleccione un cliente:</label>
-      <input list="clientes" id="clienteSeleccionado" name="clienteSeleccionado" required>
-      <datalist id="clientes">
-        <% clientes.forEach((cliente) => { %>
-          <option value="<%= cliente.nombre %> - <%= cliente.rut %>">
+      <label for="salonSeleccionado">Salon</label>
+      <select id="salonSeleccionado" name="salonSeleccionada" required>
+        <% salones.forEach((salon) => { %>
+          <option value="<%= salon.id_salon %>"><%= salon.nombre_salon %></option>
         <% }); %>
-      </datalist>
+      </select>
+    </div>
+
+    <div class="input-group">
+      <label for="clienteSeleccionado">Cliente</label>
+      <select id="clienteSalonSeleccionado" name="clienteSalonSeleccionada" required>
+        <% clientes.forEach((cliente) => { %>
+          <option value="<%= cliente.id_cliente_salon %>"><%= cliente.nombre_cliente %></option>
+        <% }); %>
+      </select>
     </div>
 
     <!-- Input de lista para seleccionar un peluquero -->
     <div class="input-group">
-      <label for="peluqueroSeleccionado">Seleccione un peluquero:</label>
-      <input list="peluqueros" id="peluqueroSeleccionado" name="peluqueroSeleccionado" required>
-      <datalist id="peluqueros">
-        <% peluqueros.forEach((peluquero) => { %>
-          <option value="<%= peluquero.nombre %> - <%= peluquero.rut %>">
+      <label for="empleadoSeleccionado">Empleado</label>
+      <select id="empleadoSeleccionado" name="empleadoSeleccionada" required>
+        <% empleados.forEach((empleado) => { %>
+          <option value="<%= empleado.id_empleado %>"><%= empleado.nombre_empleado %></option>
         <% }); %>
-      </datalist>
-    </div>
-
-    <!-- Input de fecha -->
-    <div class="input-group">
-      <label for="fechaSeleccionada">Seleccione una fecha:</label>
-      <input type="date" id="fechaSeleccionada" name="fechaSeleccionada" required>
+      </select>
     </div>
 
     <!-- Input de hora -->
     <div class="input-group">
-      <label for="horaSeleccionada">Seleccione una hora:</label>
-      <input type="time" id="horaSeleccionada" name="horaSeleccionada" required>
+      <label for="horaInicio">Hora de inicio</label>
+      <input type="time" id="horaInicio" name="horaInicio" required>
     </div>
 
-    <button type="submit">Seleccionar</button>
+    <!-- Input de hora -->
+    <div class="input-group">
+      <label for="horaFin">Hora de Fin</label>
+      <input type="time" id="horaFin" name="horaFin" required>
+    </div>
+
+    <!-- Casilla de verificación para el estado de la cita -->
+    <div class="input-group">
+      <label for="estadoCita">Estado de la cita:</label>
+      Activo
+      <input type="checkbox" id="estadoCita" name="estadoCita" value="1">
+    </div>
+
+    <button type="submit">Registrar Cita</button>
   </form>
+
+  <script>
+    window.onload = function() {
+      const errorMessage = '<%= typeof error !== "undefined" ? error : "" %>';
+      if (errorMessage) {
+        alert(errorMessage);
+      }
+    }
+  </script>
 </body>
 </html>
