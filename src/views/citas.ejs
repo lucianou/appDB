@@ -1,13 +1,82 @@
-<!-- citas.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Citas</title>
+  <meta charset="UTF-8">
+  <title>Citas</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .input-group {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input, select {
+      padding: 10px;
+      width: 50%;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+  </style>
 </head>
 <body>
-    <h1>Página de Citas</h1>
-    <!-- Contenido de la página de Citas -->
+  <h1>Citas</h1>
+  
+  <form action="/citas" method="POST">
+    <!-- Input de lista para seleccionar un cliente -->
+    <div class="input-group">
+      <label for="clienteSeleccionado">Seleccione un cliente:</label>
+      <input list="clientes" id="clienteSeleccionado" name="clienteSeleccionado" required>
+      <datalist id="clientes">
+        <% clientes.forEach((cliente) => { %>
+          <option value="<%= cliente.nombre %> - <%= cliente.rut %>">
+        <% }); %>
+      </datalist>
+    </div>
+
+    <!-- Input de lista para seleccionar un peluquero -->
+    <div class="input-group">
+      <label for="peluqueroSeleccionado">Seleccione un peluquero:</label>
+      <input list="peluqueros" id="peluqueroSeleccionado" name="peluqueroSeleccionado" required>
+      <datalist id="peluqueros">
+        <% peluqueros.forEach((peluquero) => { %>
+          <option value="<%= peluquero.nombre %> - <%= peluquero.rut %>">
+        <% }); %>
+      </datalist>
+    </div>
+
+    <!-- Input de fecha -->
+    <div class="input-group">
+      <label for="fechaSeleccionada">Seleccione una fecha:</label>
+      <input type="date" id="fechaSeleccionada" name="fechaSeleccionada" required>
+    </div>
+
+    <!-- Input de hora -->
+    <div class="input-group">
+      <label for="horaSeleccionada">Seleccione una hora:</label>
+      <input type="time" id="horaSeleccionada" name="horaSeleccionada" required>
+    </div>
+
+    <button type="submit">Seleccionar</button>
+  </form>
 </body>
 </html>

@@ -1,13 +1,55 @@
-<!-- servicios.ejs -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servicios</title>
+  <meta charset="UTF-8">
+  <title>Servicios</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <style>
+    .input-group {
+      margin: 20px 0;
+      text-align: center;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input, select {
+      padding: 10px;
+      width: 50%;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      background-color: #333;
+      color: #fff;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+      display: block;
+      margin: 0 auto;
+    }
+
+    button:hover {
+      background-color: #555;
+    }
+  </style>
 </head>
 <body>
-    <h1>Página de Servicios</h1>
-    <!-- Contenido de la página de Servicios -->
+  <h1>Servicios</h1>
+  
+  <form action="/servicios" method="POST">
+    <!-- Input de lista para seleccionar un cliente -->
+    <div class="input-group">
+        <div class="input-group">
+            <label for="username">Servicio</label>
+            <input type="text" id="servicio" name="servicio" placeholder="Servicio" required>
+        </div>
+    </div>
+    <button type="submit">Seleccionar</button>
+  </form>
 </body>
 </html>
