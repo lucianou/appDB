@@ -3,39 +3,38 @@ import { pool } from './../database/connectionPostgreSQL.js';
 
 const router = Router();
 
-// Función para obtener los clientes y peluqueros de la base de datos
-const getClientesYPeluqueros = async () => {
+// Función para obtener las comunas y los clientes de la base de datos
+const getDatos = async () => {
   try {
-    const clientesResult = await pool.query('SELECT nombre, rut FROM empleado;');
-    const peluquerosResult = await pool.query('SELECT nombre, rut FROM empleado;');
+    const servicioResult = await pool.query('SELECT id_servicio FROM servicio;');
+    const salonResult = await pool.query('SELECT id_salon, nombre_salon FROM salon;');
     return {
-      clientes: clientesResult.rows,
-      peluqueros: peluquerosResult.rows
+      servicios: servicioResult.rows,
+      salones: salonResult.rows
     };
   } catch (error) {
-    console.error('Error al obtener los clientes y peluqueros:', error);
-    return { clientes: [], peluqueros: [] };
+    console.error('Error al obtener las comunas y empleados:', error);
+    return { servicios: [], salones: [] };
   }
 };
 
-// Ruta para la página de citas (GET)
+// Ruta para la página de registro de clientes (GET)
 router.get('/', async (req, res) => {
-  const { clientes, peluqueros } = await getClientesYPeluqueros();
-  res.render('servicios', { clientes, peluqueros }); // Renderizar el archivo de vista citas.ejs con la lista de clientes y peluqueros
+  const { servicios, salones } = await getDatos();
+  res.render('servicios', { servicios , salones}); // Renderizar el archivo de vista clientes.ejs con la lista de comunas
 });
 
-// Ruta para manejar la selección del cliente, peluquero, fecha y hora (POST)
+// Ruta para manejar el registro del cliente (POST)
 router.post('/', async (req, res) => {
-  const { clienteSeleccionado, peluqueroSeleccionado, fechaSeleccionada, horaSeleccionada } = req.body;
-  const [nombreCliente, rutCliente] = clienteSeleccionado.split(' - ');
-  const [nombrepeluquero, rutPeluquero] = peluqueroSeleccionado.split(' - ');
+  const { valor, nombreServicio, salonSeleccionado } = req.body;
+  const { servicios } = await getDatos();
+  const nuevoIdServicio = servicios.length + 1;
 
-  
   try {
     // Inserción en la base de datos
-    await pool.query('INSERT INTO citas (rut_cliente, rut_peluquero, fecha, hora) VALUES ($1, $2, $3, $4)', 
-      [rutCliente, peluqueroSeleccionado, fechaSeleccionada, horaSeleccionada]);
-    res.send(`Cita agendada para el cliente: ${nombreCliente}, RUT: ${rutCliente}, con el peluquero: ${peluqueroSeleccionado}, en la fecha: ${fechaSeleccionada} a las: ${horaSeleccionada}`);
+    await pool.query('INSERT INTO servicio (id_servicio, valor_servicio, nombre_servicio, disponible, ref_id_salon) VALUES ($1, $2, $3, $4, $5);', 
+      [nuevoIdServicio, valor, nombreServicio, 0, salonSeleccionado]);
+    res.send();
   } catch (error) {
     console.error('Error al agendar la cita:', error);
     res.status(500).send('Error al agendar la cita');

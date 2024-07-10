@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Clientes</title>
+  <title>Registro de Clientes</title>
   <link rel="stylesheet" href="/css/styles.css">
   <style>
     .input-group {
@@ -39,19 +39,36 @@
   </style>
 </head>
 <body>
-  <h1>Clientes</h1>
+  <h1>Registro de Clientes</h1>
   
-  <form action="/Clientes" method="POST">
-    <!-- Input de lista para seleccionar un cliente -->
+  <form action="/clientes" method="POST">
     <div class="input-group">
-        <div class="input-group">
-            <label for="username">Ingrese datos del cliente</label>
-            <input type="text" id="rut" name="rut" placeholder="Rut" required>
-            <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
-            <input type="text" id="telefono" name="telefono" placeholder="Telefono" required>
-            <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
-            <input type="text" id="sexo" name="sexo" placeholder="Sexo" required>
-        </div>
+      <label for="rut">Rut</label>
+      <input type="text" id="rut" name="rut" placeholder="Rut" required>
+    </div>
+    <div class="input-group">
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" name="nombre" placeholder="Nombre" required>
+    </div>
+    <div class="input-group">
+      <label for="telefono">Teléfono</label>
+      <input type="text" id="telefono" name="telefono" placeholder="Teléfono" required>
+    </div>
+    <div class="input-group">
+      <label for="sexo">Sexo</label>
+      <select id="sexo" name="sexo" required>
+        <% sexos.forEach((sexo) => { %>
+          <option value="<%= sexo %>"><%= sexo %></option>
+        <% }); %>
+      </select>
+    </div>
+    <div class="input-group">
+      <label for="comunaSeleccionada">Comuna</label>
+      <select id="comunaSeleccionada" name="comunaSeleccionada" required>
+        <% comunas.forEach((comuna) => { %>
+          <option value="<%= comuna.id_comuna %>"><%= comuna.nombre_comuna %></option>
+        <% }); %>
+      </select>
     </div>
     <button type="submit">Registrar</button>
   </form>

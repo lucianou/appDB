@@ -39,17 +39,27 @@
   </style>
 </head>
 <body>
-  <h1>Servicios</h1>
-  
-  <form action="/servicios" method="POST">
-    <!-- Input de lista para seleccionar un cliente -->
-    <div class="input-group">
-        <div class="input-group">
-            <label for="username">Servicio</label>
-            <input type="text" id="servicio" name="servicio" placeholder="Servicio" required>
-        </div>
-    </div>
-    <button type="submit">Seleccionar</button>
-  </form>
-</body>
-</html>
+  <h1>Registro de Servicios</h1>
+    
+    <form action="/servicios" method="POST">
+      <div class="input-group">
+        <label for="valor">Valor</label>
+        <input type="text" id="valor" name="valor" placeholder="Valor" required>
+      </div>
+      <div class="input-group">
+        <label for="nombreServicio">Nombre del servicio</label>
+        <input type="text" id="nombreServicio" name="nombreServicio" placeholder="Nombre" required>
+      </div>
+      <div class="input-group">
+        <label for="salonSeleccionado">Salón</label>
+        <select id="SalonSeleccionado" name="salonSeleccionado" required>
+          <% salones.forEach((salon) => { %>
+            <option value="<%= salon.id_salon %>"><%= salon.nombre_salon %></option>
+          <% }); %>
+        </select>
+      </div>
+
+      <button type="submit">Registrar</button>
+    </form>
+  </body>
+  </html>
