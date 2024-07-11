@@ -54,6 +54,12 @@
 
     window.onload = function() {
       document.getElementById('salonSeleccionado').addEventListener('change', actualizarClientes);
+      document.querySelector('form').addEventListener('submit', function(event) {
+        const fechaInput = document.getElementById('fecha');
+        const fechaValue = new Date(fechaInput.value);
+        const formattedDate = fechaValue.toISOString().split('T')[0]; // Formato AAAA-MM-DD
+        fechaInput.value = formattedDate;
+      });
     }
   </script>
 </head>
@@ -108,7 +114,6 @@
       <label for="horaFin">Hora de Fin</label>
       <input type="time" id="horaFin" name="horaFin" required>
     </div>
-
 
     <!-- Casilla de verificación para el estado de la cita -->
     <div class="input-group">
