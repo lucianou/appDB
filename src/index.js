@@ -8,6 +8,7 @@ import citasRoute from './routes/citas.js'; // Importa la ruta para citas
 import serviciosRoute from './routes/servicios.js'; // Importa la ruta para servicios
 import clientesRoute from './routes/clientes.js'; // Importa la ruta para clientes
 import trabajadoresRoute from './routes/trabajadores.js'; // Importa la ruta para trabajadores
+import clientesApiRouter from './api/clientes.js';
 import bodyParser from 'body-parser';
 
 const app = express();
@@ -28,6 +29,7 @@ app.use('/citas', citasRoute);
 app.use('/servicios', serviciosRoute);
 app.use('/clientes', clientesRoute);
 app.use('/trabajadores', trabajadoresRoute);
+app.use('/api/clientes', clientesApiRouter);
 
 app.listen(3000, () => {
     console.log('Servidor corriendo en http://localhost:3000');

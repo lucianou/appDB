@@ -37,16 +37,36 @@
       background-color: #555;
     }
   </style>
+  <script>
+    async function actualizarClientes() {
+      const salonId = document.getElementById('salonSeleccionado').value;
+      const response = await fetch(`/api/clientes/${salonId}`);
+      const clientes = await response.json();
+      const clienteSelect = document.getElementById('clienteSalonSeleccionado');
+      clienteSelect.innerHTML = ''; // Limpiar las opciones actuales
+      clientes.forEach(cliente => {
+        const option = document.createElement('option');
+        option.value = cliente.id_cliente_salon;
+        option.textContent = cliente.nombre_cliente;
+        clienteSelect.appendChild(option);
+      });
+    }
+
+    window.onload = function() {
+      document.getElementById('salonSeleccionado').addEventListener('change', actualizarClientes);
+    }
+  </script>
 </head>
 <body>
-  <h1>Citas</h1>
+  <h1>Registro de citas</h1>
   
   <form action="/citas" method="POST">
     <!-- Input de lista para seleccionar un cliente -->
 
     <div class="input-group">
-      <label for="salonSeleccionado">Salon</label>
-      <select id="salonSeleccionado" name="salonSeleccionada" required>
+      <label for="salonSeleccionado">Salón</label>
+      <select id="salonSeleccionado" name="salonSeleccionado" required>
+        <option value="" disabled selected>Seleccione un salón</option>
         <% salones.forEach((salon) => { %>
           <option value="<%= salon.id_salon %>"><%= salon.nombre_salon %></option>
         <% }); %>
@@ -54,18 +74,17 @@
     </div>
 
     <div class="input-group">
-      <label for="clienteSeleccionado">Cliente</label>
-      <select id="clienteSalonSeleccionado" name="clienteSalonSeleccionada" required>
-        <% clientes.forEach((cliente) => { %>
-          <option value="<%= cliente.id_cliente_salon %>"><%= cliente.nombre_cliente %></option>
-        <% }); %>
+      <label for="clienteSalonSeleccionado">Cliente</label>
+      <select id="clienteSalonSeleccionado" name="clienteSalonSeleccionado" required>
+        <!-- Opciones llenadas dinámicamente con JavaScript -->
       </select>
     </div>
 
     <!-- Input de lista para seleccionar un peluquero -->
     <div class="input-group">
       <label for="empleadoSeleccionado">Empleado</label>
-      <select id="empleadoSeleccionado" name="empleadoSeleccionada" required>
+      <select id="empleadoSeleccionado" name="empleadoSeleccionado" required>
+        <option value="" disabled selected>Seleccione un empleado</option>
         <% empleados.forEach((empleado) => { %>
           <option value="<%= empleado.id_empleado %>"><%= empleado.nombre_empleado %></option>
         <% }); %>
@@ -87,20 +106,11 @@
     <!-- Casilla de verificación para el estado de la cita -->
     <div class="input-group">
       <label for="estadoCita">Estado de la cita:</label>
-      Activo
+                                    Activo
       <input type="checkbox" id="estadoCita" name="estadoCita" value="1">
     </div>
 
     <button type="submit">Registrar Cita</button>
   </form>
-
-  <script>
-    window.onload = function() {
-      const errorMessage = '<%= typeof error !== "undefined" ? error : "" %>';
-      if (errorMessage) {
-        alert(errorMessage);
-      }
-    }
-  </script>
 </body>
 </html>

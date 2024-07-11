@@ -6,14 +6,44 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Main</title>
     <link rel="stylesheet" href="/styles.css">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+            text-decoration: none;
+            color: white;
+            background-color: hsl(211, 91%, 18%);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
 </head>
 <body>
-    <h1>Página Principal</h1>
-    <div>
-        <a href="/citas" class="btn">Citas</a>
-        <a href="/servicios" class="btn">Servicios</a>
-        <a href="/clientes" class="btn">Clientes</a>
-        <a href="/trabajadores" class="btn">Trabajadores</a>
+    <div class="container">
+        <h1>Página Principal</h1>
+        <div>
+            <a href="/citas" class="btn">Citas</a>
+            <a href="/servicios" class="btn">Servicios</a>
+            <a href="/clientes" class="btn">Clientes</a>
+            <a href="/trabajadores" class="btn">Empleados</a>
+        </div>
     </div>
 </body>
 </html>
