@@ -36,7 +36,7 @@ router.post('/', async (req, res) => {
   try {
     // Inserción en la base de datos
     await pool.query('INSERT INTO cita (id_cita, estado_cita, dia, horario_ini, horario_fin, ref_id_empleado, ref_id_cliente_salon, ref_id_salon) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)', 
-      [nuevoIdCita, estadoCita || 0, horaInicio, horaFin, fecha, empleadoSeleccionado, clienteSalonSeleccionado, salonSeleccionado]);
+      [nuevoIdCita, estadoCita || 0, fecha, horaInicio, horaFin, empleadoSeleccionado, clienteSalonSeleccionado, salonSeleccionado]);
     res.redirect('/citas');
   } catch (error) {
     console.error('Error al agendar la cita:', error);
